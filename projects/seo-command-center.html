@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrendaWade.com — 30-Day SEO Command Center</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,400;0,500;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0B1829;
+    --navy-mid: #122036;
+    --navy-light: #1A2F4A;
+    --accent: #E8A030;
+    --accent2: #3BBFAD;
+    --text: #E8EDF2;
+    --text-dim: #7B90A8;
+    --text-faint: #3D5068;
+    --success: #3BBFAD;
+    --warning: #E8A030;
+    --danger: #E85050;
+    --card: #111f30;
+    --card-border: #1e3348;
+    --radius: 10px;
+    --font-display: 'Syne', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+    --font-mono: 'DM Mono', monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--navy);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 14px;
+    min-height: 100vh;
+    line-height: 1.6;
+  }
+
+  /* Background pattern */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      radial-gradient(ellipse 80% 60% at 20% 10%, rgba(59,191,173,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 80% at 80% 90%, rgba(232,160,48,0.05) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .app { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 24px 20px; }
+
+  /* HEADER */
+  .header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: start;
+    gap: 20px;
+    margin-bottom: 28px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--card-border);
+  }
+  .header-brand { display: flex; align-items: center; gap: 14px; }
+  .brand-dot {
+    width: 42px; height: 42px;
+    background: linear-gradient(135deg, var(--accent), #d47a1a);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display); font-weight: 800; font-size: 18px; color: var(--navy);
+    flex-shrink: 0;
+  }
+  .brand-text h1 { font-family: var(--font-display); font-size: 20px; font-weight: 700; color: var(--text); }
+  .brand-text p { font-size: 12px; color: var(--text-dim); font-family: var(--font-mono); }
+
+  .header-stats { display: flex; gap: 12px; }
+  .stat-chip {
+    background: var(--card); border: 1px solid var(--card-border);
+    border-radius: 8px; padding: 10px 16px; text-align: center;
+    min-width: 80px;
+  }
+  .stat-chip .val { font-family: var(--font-display); font-size: 22px; font-weight: 800; color: var(--accent); display: block; }
+  .stat-chip .lbl { font-size: 11px; color: var(--text-dim); font-family: var(--font-mono); text-transform: uppercase; letter-spacing: .05em; }
+
+  /* PROGRESS BAR */
+  .progress-section { margin-bottom: 24px; }
+  .progress-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+  .progress-header span { font-size: 12px; color: var(--text-dim); font-family: var(--font-mono); }
+  .progress-bar {
+    height: 6px; background: var(--card-border); border-radius: 99px; overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent2), var(--accent));
+    border-radius: 99px;
+    transition: width 0.6s ease;
+  }
+  .day-dots { display: flex; gap: 3px; margin-top: 8px; flex-wrap: wrap; }
+  .day-dot {
+    width: 20px; height: 20px; border-radius: 4px;
+    background: var(--card-border); border: 1px solid transparent;
+    cursor: pointer; transition: all .15s ease;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 9px; font-family: var(--font-mono); color: var(--text-faint);
+  }
+  .day-dot.done { background: var(--accent2); color: var(--navy); border-color: var(--accent2); font-weight: 500; }
+  .day-dot.active { background: var(--accent); color: var(--navy); border-color: var(--accent); font-weight: 700; }
+  .day-dot.partial { background: #2a4a35; border-color: #3a6a45; color: #5aaa75; }
+  .day-dot:hover { transform: scale(1.15); }
+
+  /* MAIN GRID */
+  .main-grid { display: grid; grid-template-columns: 300px 1fr; gap: 16px; }
+
+  /* LEFT PANEL */
+  .left-panel { display: flex; flex-direction: column; gap: 12px; }
+
+  .panel {
+    background: var(--card); border: 1px solid var(--card-border);
+    border-radius: var(--radius); overflow: hidden;
+  }
+  .panel-header {
+    padding: 12px 16px;
+    background: rgba(255,255,255,0.02);
+    border-bottom: 1px solid var(--card-border);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .panel-title {
+    font-family: var(--font-display); font-size: 12px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: .08em; color: var(--text-dim);
+  }
+  .panel-body { padding: 14px 16px; }
+
+  /* Day Navigator */
+  .day-nav { display: flex; align-items: center; gap: 10px; justify-content: center; padding: 14px 16px; }
+  .nav-btn {
+    width: 32px; height: 32px; border-radius: 6px;
+    background: var(--navy-light); border: 1px solid var(--card-border);
+    color: var(--text); cursor: pointer; font-size: 16px;
+    display: flex; align-items: center; justify-content: center;
+    transition: all .15s; flex-shrink: 0;
+  }
+  .nav-btn:hover { background: var(--accent); color: var(--navy); border-color: var(--accent); }
+  .nav-btn:disabled { opacity: .3; cursor: not-allowed; }
+  .day-display {
+    flex: 1; text-align: center;
+    font-family: var(--font-display); font-weight: 800; font-size: 28px; color: var(--accent);
+  }
+  .day-display small { display: block; font-size: 11px; font-weight: 400; color: var(--text-dim); font-family: var(--font-mono); }
+
+  /* Task checklist */
+  .task-list { list-style: none; }
+  .task-item {
+    display: flex; align-items: flex-start; gap: 10px;
+    padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.04);
+    cursor: pointer; transition: opacity .15s;
+  }
+  .task-item:last-child { border-bottom: none; }
+  .task-item:hover { opacity: .85; }
+  .task-check {
+    width: 18px; height: 18px; border-radius: 4px;
+    border: 1.5px solid var(--text-faint); background: transparent;
+    flex-shrink: 0; margin-top: 2px; transition: all .15s;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .task-item.done .task-check {
+    background: var(--success); border-color: var(--success); color: var(--navy);
+  }
+  .task-item.done .task-text { text-decoration: line-through; color: var(--text-dim); }
+  .task-text { font-size: 13px; line-height: 1.45; }
+  .task-tag {
+    display: inline-block; font-size: 10px; font-family: var(--font-mono);
+    padding: 1px 6px; border-radius: 4px; margin-right: 5px;
+    font-weight: 500;
+  }
+  .tag-tech { background: rgba(59,191,173,.15); color: var(--accent2); }
+  .tag-content { background: rgba(232,160,48,.15); color: var(--accent); }
+  .tag-schema { background: rgba(120,100,200,.2); color: #a090e0; }
+  .tag-local { background: rgba(80,160,80,.2); color: #80cc80; }
+
+  .complete-day-btn {
+    width: 100%; margin-top: 14px; padding: 11px;
+    background: linear-gradient(135deg, var(--accent2), #2a9a8a);
+    border: none; border-radius: 8px; color: var(--navy);
+    font-family: var(--font-display); font-weight: 700; font-size: 13px;
+    cursor: pointer; transition: all .2s; letter-spacing: .03em;
+  }
+  .complete-day-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(59,191,173,.3); }
+  .complete-day-btn.done-state {
+    background: var(--card-border); color: var(--text-dim);
+  }
+
+  /* RIGHT PANEL - AI Content Generator */
+  .right-panel { display: flex; flex-direction: column; gap: 12px; }
+
+  .generator-card {
+    background: var(--card); border: 1px solid var(--card-border);
+    border-radius: var(--radius); overflow: hidden;
+  }
+
+  .generator-tabs {
+    display: flex; gap: 0;
+    border-bottom: 1px solid var(--card-border);
+    overflow-x: auto;
+  }
+  .gen-tab {
+    padding: 11px 16px; font-size: 12px; font-family: var(--font-mono);
+    color: var(--text-dim); background: transparent; border: none;
+    cursor: pointer; white-space: nowrap; transition: all .15s;
+    border-bottom: 2px solid transparent; flex-shrink: 0;
+  }
+  .gen-tab:hover { color: var(--text); }
+  .gen-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+  .generator-body { padding: 16px; }
+
+  .gen-controls { display: flex; gap: 10px; margin-bottom: 14px; flex-wrap: wrap; }
+  .gen-select, .gen-input {
+    background: var(--navy-light); border: 1px solid var(--card-border);
+    color: var(--text); border-radius: 6px; padding: 8px 12px; font-size: 13px;
+    font-family: var(--font-body); outline: none;
+  }
+  .gen-select:focus, .gen-input:focus { border-color: var(--accent2); }
+  .gen-select { cursor: pointer; }
+  .gen-input { flex: 1; min-width: 200px; }
+
+  .gen-btn {
+    padding: 9px 20px;
+    background: var(--accent); border: none; border-radius: 6px;
+    color: var(--navy); font-family: var(--font-display); font-weight: 700;
+    font-size: 13px; cursor: pointer; transition: all .2s; white-space: nowrap;
+  }
+  .gen-btn:hover { background: #f0b848; transform: translateY(-1px); }
+  .gen-btn:disabled { opacity: .4; cursor: not-allowed; transform: none; }
+
+  .output-area {
+    background: var(--navy); border: 1px solid var(--card-border);
+    border-radius: 8px; min-height: 260px; max-height: 480px;
+    overflow-y: auto; padding: 14px 16px;
+    font-family: var(--font-mono); font-size: 12.5px; line-height: 1.7;
+    color: var(--text); white-space: pre-wrap; word-break: break-word;
+    position: relative;
+  }
+  .output-area.loading { color: var(--text-dim); }
+  .output-placeholder { color: var(--text-faint); font-style: italic; }
+
+  .output-actions {
+    display: flex; gap: 8px; margin-top: 10px; justify-content: flex-end;
+  }
+  .copy-btn, .save-btn {
+    padding: 7px 14px; border-radius: 6px; font-size: 12px;
+    font-family: var(--font-mono); cursor: pointer; transition: all .15s; border: none;
+  }
+  .copy-btn { background: var(--navy-light); border: 1px solid var(--card-border); color: var(--text-dim); }
+  .copy-btn:hover { color: var(--text); border-color: var(--text-dim); }
+  .save-btn { background: rgba(59,191,173,.15); border: 1px solid rgba(59,191,173,.3); color: var(--accent2); }
+  .save-btn:hover { background: rgba(59,191,173,.25); }
+
+  /* LOG */
+  .log-card {
+    background: var(--card); border: 1px solid var(--card-border);
+    border-radius: var(--radius); overflow: hidden;
+  }
+  .log-list { max-height: 200px; overflow-y: auto; }
+  .log-entry {
+    padding: 9px 16px; border-bottom: 1px solid rgba(255,255,255,.03);
+    display: flex; align-items: flex-start; gap: 10px; font-size: 12px;
+  }
+  .log-entry:last-child { border-bottom: none; }
+  .log-day-badge {
+    background: var(--navy-light); border-radius: 4px; padding: 1px 7px;
+    font-family: var(--font-mono); font-size: 10px; color: var(--accent);
+    flex-shrink: 0; margin-top: 1px;
+  }
+  .log-time { color: var(--text-faint); font-family: var(--font-mono); font-size: 10px; flex-shrink: 0; }
+  .log-msg { color: var(--text-dim); line-height: 1.4; flex: 1; }
+  .log-empty { padding: 20px; text-align: center; color: var(--text-faint); font-family: var(--font-mono); font-size: 12px; }
+
+  /* Keyword tracker */
+  .kw-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .kw-item {
+    background: var(--navy); border: 1px solid var(--card-border);
+    border-radius: 6px; padding: 8px 10px;
+  }
+  .kw-term { font-size: 12px; color: var(--text-dim); margin-bottom: 4px; }
+  .kw-status { font-size: 11px; font-family: var(--font-mono); }
+  .kw-status.pending { color: var(--text-faint); }
+  .kw-status.in-progress { color: var(--warning); }
+  .kw-status.done { color: var(--success); }
+
+  /* Spinner */
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .spinner {
+    display: inline-block; width: 14px; height: 14px;
+    border: 2px solid var(--card-border); border-top-color: var(--accent);
+    border-radius: 50%; animation: spin .6s linear infinite; vertical-align: middle;
+    margin-right: 6px;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 5px; height: 5px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--card-border); border-radius: 99px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--text-faint); }
+
+  /* Notification */
+  .notif {
+    position: fixed; bottom: 20px; right: 20px;
+    background: var(--accent2); color: var(--navy);
+    padding: 10px 18px; border-radius: 8px; font-size: 13px; font-weight: 600;
+    font-family: var(--font-display); transform: translateY(60px); opacity: 0;
+    transition: all .3s ease; z-index: 100;
+  }
+  .notif.show { transform: translateY(0); opacity: 1; }
+
+  /* Phase badges */
+  .phase-badge {
+    display: inline-block; padding: 2px 8px; border-radius: 4px;
+    font-size: 10px; font-family: var(--font-mono); font-weight: 500;
+    margin-bottom: 8px;
+  }
+  .phase-1 { background: rgba(232,80,80,.15); color: #e87070; border: 1px solid rgba(232,80,80,.2); }
+  .phase-2 { background: rgba(232,160,48,.15); color: var(--accent); border: 1px solid rgba(232,160,48,.2); }
+  .phase-3 { background: rgba(59,191,173,.15); color: var(--accent2); border: 1px solid rgba(59,191,173,.2); }
+  .phase-4 { background: rgba(120,100,200,.2); color: #a090e0; border: 1px solid rgba(120,100,200,.2); }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-brand">
+      <div class="brand-dot">BW</div>
+      <div class="brand-text">
+        <h1>SEO Command Center</h1>
+        <p>brendawade.com — 30-Day Seller SEO Domination</p>
+      </div>
+    </div>
+    <div class="header-stats">
+      <div class="stat-chip">
+        <span class="val" id="stat-day">1</span>
+        <span class="lbl">Current Day</span>
+      </div>
+      <div class="stat-chip">
+        <span class="val" id="stat-done">0</span>
+        <span class="lbl">Days Done</span>
+      </div>
+      <div class="stat-chip">
+        <span class="val" id="stat-tasks">0</span>
+        <span class="lbl">Tasks Done</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROGRESS -->
+  <div class="progress-section">
+    <div class="progress-header">
+      <span>30-DAY PROGRESS</span>
+      <span id="progress-pct">0% complete</span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+    <div class="day-dots" id="day-dots"></div>
+  </div>
+
+  <!-- MAIN GRID -->
+  <div class="main-grid">
+
+    <!-- LEFT: Day tasks -->
+    <div class="left-panel">
+      <div class="panel">
+        <div class="panel-header">
+          <span class="panel-title" id="day-label">Day 1</span>
+          <span id="phase-label" class="phase-badge phase-1">PHASE 1</span>
+        </div>
+        <div class="day-nav">
+          <button class="nav-btn" id="prev-btn" onclick="changeDay(-1)">&#8249;</button>
+          <div class="day-display">
+            <span id="day-num">1</span>
+            <small id="day-focus">of 30</small>
+          </div>
+          <button class="nav-btn" id="next-btn" onclick="changeDay(1)">&#8250;</button>
+        </div>
+        <div class="panel-body" style="padding-top:0">
+          <div id="day-description" style="font-size:12px; color:var(--text-dim); margin-bottom:10px; font-style:italic;"></div>
+          <ul class="task-list" id="task-list"></ul>
+          <button class="complete-day-btn" id="complete-btn" onclick="completeDay()">
+            &#10003; Mark Day Complete
+          </button>
+        </div>
+      </div>
+
+      <!-- Keywords -->
+      <div class="panel">
+        <div class="panel-header">
+          <span class="panel-title">Keyword Targets</span>
+        </div>
+        <div class="panel-body">
+          <div class="kw-grid" id="kw-grid"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: AI Generator + Log -->
+    <div class="right-panel">
+      <div class="generator-card">
+        <div class="panel-header">
+          <span class="panel-title">AI Content Generator</span>
+          <span style="font-size:11px; color:var(--text-faint); font-family:var(--font-mono);">Powered by Claude</span>
+        </div>
+        <div class="generator-tabs">
+          <button class="gen-tab active" onclick="switchTab('page')" data-tab="page">Seller Page</button>
+          <button class="gen-tab" onclick="switchTab('blog')" data-tab="blog">Blog Post</button>
+          <button class="gen-tab" onclick="switchTab('schema')" data-tab="schema">Schema Markup</button>
+          <button class="gen-tab" onclick="switchTab('meta')" data-tab="meta">Meta Tags</button>
+          <button class="gen-tab" onclick="switchTab('faq')" data-tab="faq">FAQ Content</button>
+          <button class="gen-tab" onclick="switchTab('brief')" data-tab="brief">Day Brief</button>
+        </div>
+        <div class="generator-body">
+          <div id="tab-page" class="tab-content">
+            <div class="gen-controls">
+              <select class="gen-select" id="page-city">
+                <option value="FishHawk Ranch">FishHawk Ranch</option>
+                <option value="Valrico">Valrico</option>
+                <option value="Riverview">Riverview</option>
+                <option value="Lithia">Lithia</option>
+                <option value="Brandon">Brandon</option>
+                <option value="Apollo Beach">Apollo Beach</option>
+                <option value="Tampa">Tampa</option>
+              </select>
+              <select class="gen-select" id="page-type">
+                <option value="seller pillar">Sell Your Home Page</option>
+                <option value="neighborhood">Neighborhood Overview</option>
+                <option value="listing agent">Listing Agent Page</option>
+                <option value="home valuation">Home Valuation Page</option>
+              </select>
+              <button class="gen-btn" onclick="generateContent('page')">Generate</button>
+            </div>
+          </div>
+          <div id="tab-blog" class="tab-content" style="display:none">
+            <div class="gen-controls">
+              <input class="gen-input" id="blog-topic" placeholder="e.g. FishHawk Ranch home prices 2026" value="FishHawk Ranch Real Estate Market Report 2026">
+              <button class="gen-btn" onclick="generateContent('blog')">Generate</button>
+            </div>
+          </div>
+          <div id="tab-schema" class="tab-content" style="display:none">
+            <div class="gen-controls">
+              <select class="gen-select" id="schema-type">
+                <option value="RealEstateAgent">RealEstateAgent (Homepage)</option>
+                <option value="FAQPage">FAQPage Schema</option>
+                <option value="LocalBusiness">LocalBusiness Schema</option>
+                <option value="Residence">Property/Residence Schema</option>
+                <option value="BreadcrumbList">Breadcrumb Schema</option>
+                <option value="Article">Article/Blog Schema</option>
+              </select>
+              <input class="gen-input" id="schema-context" placeholder="Context (e.g. 'FishHawk Ranch seller page')" style="max-width:200px">
+              <button class="gen-btn" onclick="generateContent('schema')">Generate</button>
+            </div>
+          </div>
+          <div id="tab-meta" class="tab-content" style="display:none">
+            <div class="gen-controls">
+              <input class="gen-input" id="meta-page" placeholder="Page description (e.g. FishHawk Ranch seller page)">
+              <button class="gen-btn" onclick="generateContent('meta')">Generate</button>
+            </div>
+          </div>
+          <div id="tab-faq" class="tab-content" style="display:none">
+            <div class="gen-controls">
+              <input class="gen-input" id="faq-topic" placeholder="e.g. selling a home in Valrico FL" value="selling a home in FishHawk Ranch FL">
+              <button class="gen-btn" onclick="generateContent('faq')">Generate</button>
+            </div>
+          </div>
+          <div id="tab-brief" class="tab-content" style="display:none">
+            <div class="gen-controls">
+              <button class="gen-btn" onclick="generateContent('brief')">Generate Today's Full Brief</button>
+              <span style="font-size:11px; color:var(--text-faint); font-family:var(--font-mono);">1.5-hr action plan for Day <span id="brief-day-num">1</span></span>
+            </div>
+          </div>
+
+          <div class="output-area" id="output-area">
+            <span class="output-placeholder">&#8592; Select a content type and click Generate. Output will appear here, ready to copy into your website.</span>
+          </div>
+          <div class="output-actions">
+            <button class="copy-btn" onclick="copyOutput()">&#128203; Copy</button>
+            <button class="save-btn" onclick="saveToLog()">&#128190; Save to Log</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Activity Log -->
+      <div class="log-card">
+        <div class="panel-header">
+          <span class="panel-title">Activity Log</span>
+          <button onclick="clearLog()" style="font-size:11px; color:var(--text-faint); background:none; border:none; cursor:pointer; font-family:var(--font-mono);">clear</button>
+        </div>
+        <div class="log-list" id="log-list">
+          <div class="log-empty">No activity yet — start Day 1 to begin logging.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="notif" id="notif"></div>
+
+<script>
+// ============================================================
+// DATA
+// ============================================================
+const DAYS = [
+  { phase: 1, focus: "Audit Setup + Schema Foundation", desc: "Verify crawlability, unify NAP, and add core schema to homepage.",
+    tasks: [
+      { tag: "tech", text: "Verify /robots.txt \u2014 ensure Google can crawl all key pages" },
+      { tag: "tech", text: "Submit sitemap.xml to Google Search Console" },
+      { tag: "schema", text: "Add RealEstateAgent JSON-LD schema to homepage <head>" },
+      { tag: "schema", text: "Add LocalBusiness schema with correct NAP to homepage" },
+      { tag: "tech", text: "Unify phone number across entire site \u2192 use 813-924-8677" },
+      { tag: "tech", text: "Set up / verify Google Search Console \u2014 check for crawl errors" }
+    ]
+  },
+  { phase: 1, focus: "Home Valuation Page Optimization", desc: "Optimize the highest-intent seller lead capture page.",
+    tasks: [
+      { tag: "content", text: "Rewrite page title \u2192 'Tampa Home Valuation \u2014 Free CMA | Brenda Wade Team'" },
+      { tag: "content", text: "Write optimized meta description targeting Tampa/FishHawk/Valrico home value" },
+      { tag: "content", text: "Add H1: 'What Is Your Tampa Bay Home Worth?'" },
+      { tag: "content", text: "Add 300-word intro paragraph with target keywords" },
+      { tag: "schema", text: "Add FAQPage schema with 3 seller valuation questions" },
+      { tag: "content", text: "Add CTA linking to contact form" }
+    ]
+  },
+  { phase: 1, focus: "Sellers Page Upgrade", desc: "Transform the sellers page into a multi-city authority hub.",
+    tasks: [
+      { tag: "content", text: "Add H1: 'Sell Your Home in Tampa Bay \u2014 The Brenda Wade Difference'" },
+      { tag: "content", text: "Expand page to 800+ words mentioning all target cities" },
+      { tag: "schema", text: "Add 5-question FAQPage schema targeting seller intent" },
+      { tag: "content", text: "Add internal links to each neighborhood page" },
+      { tag: "content", text: "Add seller-specific testimonial quotes section" }
+    ]
+  },
+  { phase: 1, focus: "Listing Title Tag Overhaul", desc: "Fix all active listing titles for neighborhood keyword targeting.",
+    tasks: [
+      { tag: "tech", text: "Audit all active listing title tags (note current vs needed format)" },
+      { tag: "content", text: "Update titles \u2192 '[Beds] Bed [Neighborhood] Home for Sale | Brenda Wade Team'" },
+      { tag: "content", text: "Add neighborhood name in each listing H1 and first paragraph" },
+      { tag: "content", text: "Add internal link from each listing to its neighborhood page" },
+      { tag: "content", text: "Add internal link from FishHawk listings to sellers guide (once created)" }
+    ]
+  },
+  { phase: 1, focus: "Fix Technical Issues", desc: "Address crawl errors, broken links, and duplicate content risks.",
+    tasks: [
+      { tag: "tech", text: "Check for and fix 404 errors or broken internal links" },
+      { tag: "tech", text: "Add canonical tags to listing pages (prevent MLS duplicate content)" },
+      { tag: "tech", text: "Add descriptive alt text to all homepage images" },
+      { tag: "tech", text: "Verify listing pages indexable via URL Inspection in Search Console" },
+      { tag: "tech", text: "Confirm sitemap includes all neighborhood and seller pages" }
+    ]
+  },
+  { phase: 1, focus: "Property Schema on Listings", desc: "Add structured data to top listings so Google understands them.",
+    tasks: [
+      { tag: "schema", text: "Add schema.org/Residence structured data to top 10 active listings" },
+      { tag: "schema", text: "Include: address, price, bedrooms, bathrooms, sqft, neighborhood" },
+      { tag: "schema", text: "Add BreadcrumbList schema: Home > FishHawk Ranch > [Address]" },
+      { tag: "tech", text: "Test all schema via Google Rich Results Test tool" }
+    ]
+  },
+  { phase: 1, focus: "FishHawk Ranch Market Report Blog", desc: "Publish first high-value SEO blog targeting FishHawk Ranch.",
+    tasks: [
+      { tag: "content", text: "Write 1,500-word blog: 'FishHawk Ranch Real Estate Market Report: Spring 2026'" },
+      { tag: "content", text: "Target keywords: FishHawk Ranch homes for sale, FishHawk Ranch real estate" },
+      { tag: "content", text: "Include median prices, days on market, inventory trends" },
+      { tag: "content", text: "Add internal links to FishHawk listing pages and Home Valuation" },
+      { tag: "schema", text: "Add Article schema and FAQPage schema to the post" }
+    ]
+  },
+  { phase: 2, focus: "Internal Linking Audit", desc: "Build the internal link web connecting all site sections.",
+    tasks: [
+      { tag: "tech", text: "Map current internal links across all key pages" },
+      { tag: "content", text: "Add 2-3 internal links to each neighborhood page \u2192 Sellers + Valuation" },
+      { tag: "content", text: "Add 'Related Neighborhoods' sections to all neighborhood pages" },
+      { tag: "content", text: "Use seller-focused anchor text: 'sell your FishHawk Ranch home'" },
+      { tag: "content", text: "Ensure every page has at least one link to Home Valuation" }
+    ]
+  },
+  { phase: 2, focus: "CREATE: Sell Your Home in FishHawk Ranch", desc: "Build your #1 highest-value seller pillar page.",
+    tasks: [
+      { tag: "content", text: "Create page at URL: /sell-your-home-fishhawk-ranch" },
+      { tag: "content", text: "Write 2,000+ word seller guide for FishHawk Ranch" },
+      { tag: "content", text: "Include: market stats, Brenda's FishHawk track record, selling timeline, pricing strategy" },
+      { tag: "schema", text: "Add FAQPage schema with 5+ FishHawk-specific seller questions" },
+      { tag: "content", text: "Add CTA to Home Valuation + contact form" },
+      { tag: "content", text: "Add internal links to FishHawk listings and neighborhood page" }
+    ]
+  },
+  { phase: 2, focus: "CREATE: Sell Your Home in Valrico", desc: "Second highest-value seller pillar page.",
+    tasks: [
+      { tag: "content", text: "Create page at URL: /sell-your-home-valrico" },
+      { tag: "content", text: "Write 2,000+ word seller guide for Valrico" },
+      { tag: "content", text: "Include: Valrico market data, Brenda's sold history, FAQ" },
+      { tag: "schema", text: "Add FAQPage schema with Valrico-specific questions" },
+      { tag: "content", text: "Internal links to Valrico listings, neighborhood page, Home Valuation" }
+    ]
+  },
+  { phase: 2, focus: "Valrico Market Report Blog Post", desc: "Publish content targeting Valrico seller search terms.",
+    tasks: [
+      { tag: "content", text: "Write: 'Valrico Home Prices Explained: What Sellers Need to Know in 2026'" },
+      { tag: "content", text: "1,500+ words with real data points from sold listings" },
+      { tag: "content", text: "Target: Valrico home values, sell my home Valrico, Valrico real estate market" },
+      { tag: "content", text: "Internal links to Sell Your Home in Valrico page + Home Valuation" },
+      { tag: "schema", text: "Add Article schema and FAQ section" }
+    ]
+  },
+  { phase: 2, focus: "CREATE: Sell Your Home in Riverview", desc: "Third seller pillar page \u2014 leverage strong neighborhood content.",
+    tasks: [
+      { tag: "content", text: "Create page at URL: /sell-your-home-riverview" },
+      { tag: "content", text: "Write 2,000+ word seller guide for Riverview" },
+      { tag: "content", text: "Link FROM existing Riverview neighborhood page TO this new page" },
+      { tag: "schema", text: "Add FAQPage schema with Riverview-specific questions" },
+      { tag: "content", text: "Target: Riverview listing agent, sell my home Riverview FL" }
+    ]
+  },
+  { phase: 2, focus: "Schema Expansion Round 2", desc: "Add structured data to all new pages and remaining listings.",
+    tasks: [
+      { tag: "schema", text: "Add Residence/Property schema to ALL remaining active listings" },
+      { tag: "schema", text: "Add Article schema to all blog posts" },
+      { tag: "schema", text: "Add FAQPage schema to Sellers page and Home Valuation page" },
+      { tag: "tech", text: "Test all schema via Google's Rich Results Test \u2014 fix any errors" }
+    ]
+  },
+  { phase: 2, focus: "'Should You Sell Your Tampa Home in 2026?' Blog", desc: "Broad Tampa seller intent authority content.",
+    tasks: [
+      { tag: "content", text: "Write 1,500-word blog targeting Tampa seller broad intent" },
+      { tag: "content", text: "Cover: market conditions, interest rates, timing, why use a listing agent" },
+      { tag: "content", text: "Target: sell my home Tampa 2026, Tampa real estate market 2026" },
+      { tag: "content", text: "Internal links to all 3 seller pillar pages + Home Valuation" }
+    ]
+  },
+  { phase: 3, focus: "CREATE: Sell Your Home in Lithia", desc: "Expand seller coverage to Lithia luxury market.",
+    tasks: [
+      { tag: "content", text: "Create page at URL: /sell-your-home-lithia" },
+      { tag: "content", text: "Write 2,000+ words targeting: Lithia FL listing agent, Lithia luxury homes" },
+      { tag: "content", text: "Incorporate Brenda's high-value Lithia sold listings as proof" },
+      { tag: "schema", text: "Add FAQPage schema with Lithia-specific questions" }
+    ]
+  },
+  { phase: 3, focus: "CREATE: Sell Your Home in Brandon", desc: "Complete the core city seller page set.",
+    tasks: [
+      { tag: "content", text: "Create page at URL: /sell-your-home-brandon" },
+      { tag: "content", text: "Write 2,000+ words targeting: Brandon listing agent Tampa" },
+      { tag: "content", text: "Reference Brandon community page and link bidirectionally" },
+      { tag: "schema", text: "Add FAQPage schema with Brandon-specific questions" }
+    ]
+  },
+  { phase: 3, focus: "Optimize Neighborhood Pages for Seller Intent", desc: "Add seller CTAs to all existing neighborhood pages.",
+    tasks: [
+      { tag: "content", text: "Add 'Thinking of Selling?' section to every neighborhood page" },
+      { tag: "content", text: "Link each neighborhood page to its Sell Your Home counterpart" },
+      { tag: "content", text: "Add seller-focused CTAs to FishHawk, Valrico, Riverview, Brandon, Lithia" },
+      { tag: "content", text: "Update neighborhood page H1s to mention both buying and selling" }
+    ]
+  },
+  { phase: 3, focus: "Core Web Vitals Improvement", desc: "Fix page speed issues hurting rankings and user experience.",
+    tasks: [
+      { tag: "tech", text: "Test homepage in PageSpeed Insights \u2014 document LCP score" },
+      { tag: "tech", text: "Replace video hero with static image OR add fetchpriority='high' to hero" },
+      { tag: "tech", text: "Compress any images above 200KB using Cloudinary URL parameters" },
+      { tag: "tech", text: "Target LCP under 2.5 seconds \u2014 retest after changes" }
+    ]
+  },
+  { phase: 3, focus: "CREATE: Tampa Listing Agent Pillar Page", desc: "Rank for 'Tampa listing agent' \u2014 high-value broad keyword.",
+    tasks: [
+      { tag: "content", text: "Create page at URL: /tampa-listing-agent" },
+      { tag: "content", text: "Write 2,000+ words: 'Tampa Listing Agent \u2014 Why the Brenda Wade Team Gets You More'" },
+      { tag: "content", text: "Target: Tampa listing agent, best listing agent Tampa, Tampa realtor seller" },
+      { tag: "schema", text: "Add FAQPage schema with Tampa listing agent questions" },
+      { tag: "content", text: "Internal links to all city-specific seller pages" }
+    ]
+  },
+  { phase: 3, focus: "Home Valuation Page Deep Expansion", desc: "Turn the valuation page into a neighborhood-specific resource.",
+    tasks: [
+      { tag: "content", text: "Expand /home-valuation OR create companion guide blog post" },
+      { tag: "content", text: "Add neighborhood-specific valuation examples from sold data" },
+      { tag: "content", text: "Target: Tampa home valuation, free CMA Tampa, how to value my home" },
+      { tag: "schema", text: "Expand FAQ schema with neighborhood-specific valuation questions" }
+    ]
+  },
+  { phase: 3, focus: "Apollo Beach + Southshore Coverage", desc: "Expand seller coverage to underserved Greater Tampa Bay markets.",
+    tasks: [
+      { tag: "content", text: "Create or expand: 'Sell Your Home in Apollo Beach' page" },
+      { tag: "content", text: "Create or expand: 'Sell Your Home in Southshore / Sun City Center' page" },
+      { tag: "schema", text: "Add schema and FAQs to both new pages" },
+      { tag: "content", text: "Internal links from existing Apollo Beach listings to new pages" }
+    ]
+  },
+  { phase: 4, focus: "Google Business Profile Optimization", desc: "Maximize local pack visibility for Tampa Bay seller searches.",
+    tasks: [
+      { tag: "local", text: "Add FishHawk Ranch, Valrico, Riverview, Lithia as GBP service areas" },
+      { tag: "local", text: "Add all new seller pages as 'Posts' in Google Business Profile" },
+      { tag: "local", text: "Verify GBP phone matches unified site number: 813-924-8677" },
+      { tag: "local", text: "Upload 10+ recent listing photos to GBP" },
+      { tag: "local", text: "Request reviews from recent FishHawk / Valrico sellers specifically" }
+    ]
+  },
+  { phase: 4, focus: "Backlink Outreach Preparation", desc: "Identify and prepare outreach for link-building opportunities.",
+    tasks: [
+      { tag: "local", text: "Identify Tampa Bay news sites: Tampa Bay Times, TBO.com, Creative Loafing" },
+      { tag: "local", text: "Find FishHawk Ranch and Valrico community blogs/Facebook groups" },
+      { tag: "local", text: "Identify Hillsborough Chamber of Commerce + local directories" },
+      { tag: "content", text: "Draft outreach email offering market data / expert quotes" },
+      { tag: "content", text: "Create 'Tampa Real Estate Market Stats' resource page for press outreach" }
+    ]
+  },
+  { phase: 4, focus: "Backlink Outreach Execution", desc: "Send outreach emails and submit to directories.",
+    tasks: [
+      { tag: "local", text: "Send outreach to Tampa Bay real estate journalists" },
+      { tag: "local", text: "Submit BrendaWade.com to Hillsborough Chamber + local directories" },
+      { tag: "local", text: "Reach out to FishHawk Ranch HOA / community sites for agent recommendation" },
+      { tag: "local", text: "Submit to RealEstateAgents.com, Homes.com agent profile" }
+    ]
+  },
+  { phase: 4, focus: "Press & Media Page SEO", desc: "Use media recognition as an E-E-A-T signal for Google.",
+    tasks: [
+      { tag: "schema", text: "Add Article/NewsArticle schema to press page media mentions" },
+      { tag: "content", text: "Add internal links from Press page to all seller pillar pages" },
+      { tag: "content", text: "Write page section: 'Why Tampa Sellers Choose Brenda Wade'" },
+      { tag: "content", text: "Optimize press page title: 'Award-Winning Tampa Real Estate Agent | Press & Media'" }
+    ]
+  },
+  { phase: 4, focus: "Testimonials Page SEO", desc: "Turn social proof into a ranking asset.",
+    tasks: [
+      { tag: "schema", text: "Add Review schema / aggregate rating markup to testimonials page" },
+      { tag: "content", text: "Create seller-specific testimonials section (separate from buyer)" },
+      { tag: "content", text: "Internal links from testimonials to seller pillar pages" },
+      { tag: "content", text: "Title tag: 'Tampa Real Estate Reviews \u2014 Brenda Wade Team Client Testimonials'" }
+    ]
+  },
+  { phase: 4, focus: "Final Blog Content Sprint", desc: "Publish two more high-value seller posts.",
+    tasks: [
+      { tag: "content", text: "Publish: 'Top Neighborhoods to Sell in Greater Tampa Bay in 2026'" },
+      { tag: "content", text: "Publish: 'What Is My FishHawk Ranch Home Worth in 2026?'" },
+      { tag: "schema", text: "Add Article + FAQ schema to both posts" },
+      { tag: "content", text: "Internal links to seller pillar pages from both posts" }
+    ]
+  },
+  { phase: 4, focus: "Technical SEO Final Pass", desc: "Full site crawl and cleanup before final audit.",
+    tasks: [
+      { tag: "tech", text: "Run full site crawl via Screaming Frog (or Sitebulb)" },
+      { tag: "tech", text: "Fix any remaining 404 errors, duplicate title tags, or missing H1s" },
+      { tag: "tech", text: "Verify all new pages appear in Google Search Console as indexed" },
+      { tag: "tech", text: "Confirm all schema passes Rich Results Test with no errors" }
+    ]
+  },
+  { phase: 4, focus: "Internal Linking Final Audit", desc: "Ensure every key page has strong inbound internal links.",
+    tasks: [
+      { tag: "content", text: "Verify each seller pillar page has 5+ internal links pointing to it" },
+      { tag: "content", text: "Ensure all FishHawk listings link to Sell Your Home in FishHawk Ranch" },
+      { tag: "content", text: "Ensure all Valrico listings link to Sell Your Home in Valrico" },
+      { tag: "content", text: "Home Valuation must be linked from every seller pillar page" }
+    ]
+  },
+  { phase: 4, focus: "Month 1 Reporting & Month 2 Planning", desc: "Measure results and plan the next 30-day sprint.",
+    tasks: [
+      { tag: "tech", text: "Pull GSC data: impressions, clicks, avg position for all target keywords" },
+      { tag: "tech", text: "Document all pages created and technical changes made this month" },
+      { tag: "content", text: "Identify which pages gained impressions fastest \u2014 plan more on those topics" },
+      { tag: "content", text: "Plan Month 2: YouTube SEO, more backlink outreach, city-specific content" },
+      { tag: "local", text: "Review GBP insights: profile views, direction requests, calls" }
+    ]
+  },
+];
+
+const KEYWORDS = [
+  { term: "FishHawk Ranch listing agent", day: 9 },
+  { term: "Sell my home FishHawk Ranch", day: 9 },
+  { term: "Valrico listing agent", day: 10 },
+  { term: "Valrico homes for sale", day: 8 },
+  { term: "Tampa home valuation", day: 2 },
+  { term: "Tampa listing agent", day: 19 },
+  { term: "Sell my home Tampa", day: 3 },
+  { term: "Riverview listing agent", day: 12 },
+  { term: "Lithia FL listing agent", day: 15 },
+  { term: "Brandon listing agent", day: 16 },
+];
+
+// ============================================================
+// STATE
+// ============================================================
+let state = {
+  currentDay: 1,
+  completedDays: [],
+  completedTasks: {},
+  log: [],
+  totalTasksDone: 0,
+};
+
+function loadState() {
+  try {
+    const saved = localStorage.getItem('bw_seo_state');
+    if (saved) state = { ...state, ...JSON.parse(saved) };
+  } catch(e) {}
+}
+function saveState() {
+  try { localStorage.setItem('bw_seo_state', JSON.stringify(state)); } catch(e) {}
+}
+
+// ============================================================
+// RENDER
+// ============================================================
+function render() {
+  const day = state.currentDay;
+  const dayData = DAYS[day - 1];
+  const doneDays = state.completedDays.length;
+  const totalTasks = countTotalDoneTasks();
+
+  document.getElementById('stat-day').textContent = day;
+  document.getElementById('stat-done').textContent = doneDays;
+  document.getElementById('stat-tasks').textContent = totalTasks;
+  document.getElementById('day-label').textContent = 'Day ' + day + ' \u2014 ' + dayData.focus;
+  document.getElementById('day-num').textContent = day;
+  document.getElementById('day-focus').textContent = dayData.focus;
+  document.getElementById('day-description').textContent = dayData.desc;
+  document.getElementById('brief-day-num').textContent = day;
+
+  const phaseBadge = document.getElementById('phase-label');
+  phaseBadge.textContent = 'PHASE ' + dayData.phase;
+  phaseBadge.className = 'phase-badge phase-' + dayData.phase;
+
+  const pct = Math.round((doneDays / 30) * 100);
+  document.getElementById('progress-pct').textContent = pct + '% complete';
+  document.getElementById('progress-fill').style.width = pct + '%';
+
+  document.getElementById('prev-btn').disabled = day <= 1;
+  document.getElementById('next-btn').disabled = day >= 30;
+
+  // Day dots
+  const dotsEl = document.getElementById('day-dots');
+  dotsEl.innerHTML = '';
+  for (let i = 1; i <= 30; i++) {
+    const dot = document.createElement('div');
+    dot.className = 'day-dot';
+    dot.textContent = i;
+    dot.title = 'Day ' + i + ': ' + DAYS[i-1].focus;
+    if (state.completedDays.includes(i)) dot.classList.add('done');
+    else if (i === day) dot.classList.add('active');
+    else if (state.completedTasks[i] && state.completedTasks[i].length > 0) dot.classList.add('partial');
+    dot.onclick = function() { state.currentDay = i; render(); };
+    dotsEl.appendChild(dot);
+  }
+
+  // Tasks
+  const taskList = document.getElementById('task-list');
+  taskList.innerHTML = '';
+  var doneTasks = state.completedTasks[day] || [];
+  dayData.tasks.forEach(function(task, i) {
+    const li = document.createElement('li');
+    li.className = 'task-item' + (doneTasks.includes(i) ? ' done' : '');
+    li.onclick = function() { toggleTask(day, i); };
+    li.innerHTML =
+      '<div class="task-check">' + (doneTasks.includes(i) ? '\u2713' : '') + '</div>' +
+      '<span class="task-text"><span class="task-tag tag-' + task.tag + '">' + task.tag + '</span>' + task.text + '</span>';
+    taskList.appendChild(li);
+  });
+
+  // Complete button
+  const btn = document.getElementById('complete-btn');
+  const isDone = state.completedDays.includes(day);
+  btn.textContent = isDone ? '\u2713 Day Complete!' : '\u2713 Mark Day Complete';
+  btn.className = 'complete-day-btn' + (isDone ? ' done-state' : '');
+
+  // Keywords
+  renderKeywords();
+  renderLog();
+}
+
+function renderKeywords() {
+  const grid = document.getElementById('kw-grid');
+  grid.innerHTML = '';
+  KEYWORDS.forEach(function(kw) {
+    const isPageDone = state.completedDays.includes(kw.day);
+    const isStarted = kw.day <= state.currentDay;
+    const div = document.createElement('div');
+    div.className = 'kw-item';
+    const statusClass = isPageDone ? 'done' : isStarted ? 'in-progress' : 'pending';
+    const statusText = isPageDone ? '\u2713 Page Created' : isStarted ? '\u21BB In Progress' : 'Day ' + kw.day;
+    div.innerHTML = '<div class="kw-term">' + kw.term + '</div><div class="kw-status ' + statusClass + '">' + statusText + '</div>';
+    grid.appendChild(div);
+  });
+}
+
+function renderLog() {
+  const logEl = document.getElementById('log-list');
+  if (state.log.length === 0) {
+    logEl.innerHTML = '<div class="log-empty">No activity yet \u2014 start Day 1 to begin logging.</div>';
+    return;
+  }
+  logEl.innerHTML = '';
+  state.log.slice().reverse().slice(0, 50).forEach(function(entry) {
+    const div = document.createElement('div');
+    div.className = 'log-entry';
+    div.innerHTML =
+      '<span class="log-day-badge">D' + entry.day + '</span>' +
+      '<span class="log-time">' + entry.time + '</span>' +
+      '<span class="log-msg">' + entry.msg + '</span>';
+    logEl.appendChild(div);
+  });
+}
+
+function countTotalDoneTasks() {
+  let count = 0;
+  Object.values(state.completedTasks).forEach(function(arr) { count += arr.length; });
+  return count;
+}
+
+// ============================================================
+// ACTIONS
+// ============================================================
+function changeDay(delta) {
+  const newDay = state.currentDay + delta;
+  if (newDay >= 1 && newDay <= 30) {
+    state.currentDay = newDay;
+    render();
+  }
+}
+
+function toggleTask(day, taskIdx) {
+  if (!state.completedTasks[day]) state.completedTasks[day] = [];
+  const idx = state.completedTasks[day].indexOf(taskIdx);
+  if (idx >= 0) {
+    state.completedTasks[day].splice(idx, 1);
+  } else {
+    state.completedTasks[day].push(taskIdx);
+    addLog(day, 'Completed: ' + DAYS[day-1].tasks[taskIdx].text.slice(0, 60) + '...');
+  }
+  saveState();
+  render();
+}
+
+function completeDay() {
+  const day = state.currentDay;
+  if (!state.completedDays.includes(day)) {
+    state.completedDays.push(day);
+    addLog(day, '\u2713 Day ' + day + ' marked complete: ' + DAYS[day-1].focus);
+    showNotif('Day ' + day + ' complete!');
+    if (day < 30) setTimeout(function() { state.currentDay = day + 1; render(); }, 800);
+  } else {
+    state.completedDays = state.completedDays.filter(function(d) { return d !== day; });
+    addLog(day, 'Day ' + day + ' marked incomplete');
+  }
+  saveState();
+  render();
+}
+
+function addLog(day, msg) {
+  const now = new Date();
+  const time = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+  state.log.push({ day: day, time: time, msg: msg });
+  if (state.log.length > 200) state.log.shift();
+  saveState();
+}
+
+function clearLog() {
+  state.log = [];
+  saveState();
+  renderLog();
+}
+
+// ============================================================
+// TABS
+// ============================================================
+function switchTab(tab) {
+  document.querySelectorAll('.tab-content').forEach(function(el) { el.style.display = 'none'; });
+  document.querySelectorAll('.gen-tab').forEach(function(el) { el.classList.remove('active'); });
+  document.getElementById('tab-' + tab).style.display = '';
+  document.querySelector('[data-tab="' + tab + '"]').classList.add('active');
+}
+
+// ============================================================
+// AI GENERATION
+// ============================================================
+let currentOutput = '';
+
+async function generateContent(type) {
+  const out = document.getElementById('output-area');
+  out.innerHTML = '<span class="spinner"></span> Generating with Claude AI...';
+  out.classList.add('loading');
+
+  const day = state.currentDay;
+  const dayData = DAYS[day - 1];
+
+  let prompt = '';
+  if (type === 'page') {
+    const city = document.getElementById('page-city').value;
+    const pageType = document.getElementById('page-type').value;
+    prompt = 'You are an expert real estate SEO copywriter. Write a complete, SEO-optimized ' + pageType + ' page for Brenda Wade Team targeting ' + city + ', Florida.\n\nRequirements:\n- 2,000+ words\n- H1, H2, H3 structure with keyword-rich headings\n- Target keywords: "' + city + ' listing agent", "sell my home ' + city + '", "' + city + ' home values", "' + city + ' real estate agent"\n- Include: market overview, why choose Brenda Wade Team, selling process, local market stats, testimonial mention\n- Include a "Frequently Asked Questions" section at the end with 5 questions\n- Natural, professional tone \u2014 avoid generic AI writing\n- End with a strong CTA to get a free home valuation\n- Brenda Wade Team is the #1 team in Hillsborough County, Wall Street Journal Top 20 nationally\n- Phone: 813-924-8677 | Website: brendawade.com\n\nFormat the output as the actual page content with clear heading structure (use ## for H2, ### for H3).';
+  } else if (type === 'blog') {
+    const topic = document.getElementById('blog-topic').value;
+    prompt = 'You are an expert real estate SEO content writer. Write a complete SEO-optimized blog post for Brenda Wade Team (brendawade.com) on the topic:\n\n"' + topic + '"\n\nRequirements:\n- 1,500-1,800 words\n- Keyword-rich H1 title, plus H2 and H3 subheadings throughout\n- Written for Tampa Bay / Hillsborough County homeowners considering selling\n- Include real-world market context (prices, trends)\n- Natural, authoritative tone \u2014 avoid generic AI writing\n- Include a FAQ section at the end (3-5 questions)\n- End with a CTA mentioning Brenda Wade Team\n- Brenda Wade Team context: #1 team in Hillsborough County, Wall Street Journal Top 20 nationally, 813-924-8677\n\nFormat as complete blog post content with ## H2 and ### H3 headings.';
+  } else if (type === 'schema') {
+    const schemaType = document.getElementById('schema-type').value;
+    const context = document.getElementById('schema-context').value || 'BrendaWade.com Tampa real estate seller page';
+    prompt = 'Generate a complete, valid JSON-LD schema markup for schema.org/' + schemaType + ' for this context:\n\n"' + context + '"\n\nDetails about the business:\n- Name: Brenda Wade Team\n- Type: Real estate agent / listing specialist\n- Location: Tampa Bay / Hillsborough County, FL\n- Phone: 813-924-8677\n- Website: https://www.brendawade.com\n- Awards: #1 team Hillsborough County, Wall Street Journal Top 20\n- Service areas: Tampa, FishHawk Ranch, Valrico, Riverview, Lithia, Brandon, Apollo Beach\n\nOutput ONLY the complete <script type="application/ld+json"> block, ready to paste into a page\'s <head>. Include all relevant properties for maximum SEO benefit.';
+  } else if (type === 'meta') {
+    const pageDesc = document.getElementById('meta-page').value || 'Sell Your Home in FishHawk Ranch page';
+    prompt = 'Write optimized SEO meta tags for a real estate page on BrendaWade.com.\n\nPage: ' + pageDesc + '\nBusiness: Brenda Wade Team \u2014 #1 real estate team in Hillsborough County, Tampa Bay, FL\nPhone: 813-924-8677\n\nGenerate:\n1. <title> tag (under 60 characters, keyword-rich)\n2. <meta name="description"> (under 155 characters, includes CTA)\n3. Suggested H1 tag\n4. Suggested URL slug\n\nFormat as HTML-ready tags, one per line.';
+  } else if (type === 'faq') {
+    const topic = document.getElementById('faq-topic').value;
+    prompt = 'Generate 7 frequently asked questions with detailed, SEO-optimized answers for a real estate seller page about: "' + topic + '"\n\nRequirements:\n- Questions should match real Google search queries Tampa Bay homeowners ask\n- Answers should be 3-5 sentences each, authoritative, local-specific\n- Include keywords naturally in both questions and answers\n- Mention Brenda Wade Team naturally in 1-2 answers (not all)\n- Format as:\n  Q: [question]\n  A: [answer]\n  \nAlso provide the complete FAQPage JSON-LD schema markup for all 7 questions at the end.';
+  } else if (type === 'brief') {
+    prompt = 'You are the SEO director for BrendaWade.com, a top Tampa Bay real estate team.\n\nGenerate a detailed 1.5-hour execution brief for Day ' + day + ' of a 30-day SEO domination campaign.\n\nDay ' + day + ' focus: "' + dayData.focus + '"\nDay description: "' + dayData.desc + '"\n\nPlanned tasks:\n' + dayData.tasks.map(function(t, i) { return (i+1) + '. [' + t.tag.toUpperCase() + '] ' + t.text; }).join('\n') + '\n\nWrite a practical, step-by-step brief that includes:\n1. What to do FIRST (15 min quick win)\n2. Main task breakdown with time estimates adding to 90 minutes\n3. Specific copy/code snippets where relevant (actual titles, meta descriptions, internal link anchor text)\n4. What to skip if running short on time\n5. Tomorrow\'s #1 priority\n\nBe specific and actionable \u2014 this is for someone executing SEO tasks with 1.5 hours available today.';
+  }
+
+  try {
+    const resp = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        messages: [{ role: 'user', content: prompt }]
+      })
+    });
+    const data = await resp.json();
+    if (data.content && data.content[0]) {
+      currentOutput = data.content[0].text;
+      out.textContent = currentOutput;
+      out.classList.remove('loading');
+      addLog(state.currentDay, 'Generated: ' + type + ' content');
+      saveState();
+    } else {
+      out.textContent = 'Error: ' + JSON.stringify(data);
+      out.classList.remove('loading');
+    }
+  } catch(e) {
+    out.textContent = 'Error connecting to Claude API: ' + e.message;
+    out.classList.remove('loading');
+  }
+}
+
+function copyOutput() {
+  if (!currentOutput) return;
+  navigator.clipboard.writeText(currentOutput).then(function() { showNotif('Copied to clipboard!'); });
+}
+
+function saveToLog() {
+  if (!currentOutput) return;
+  addLog(state.currentDay, 'Saved content snippet (' + currentOutput.length + ' chars)');
+  renderLog();
+  showNotif('Saved to activity log!');
+}
+
+function showNotif(msg) {
+  const n = document.getElementById('notif');
+  n.textContent = msg;
+  n.classList.add('show');
+  setTimeout(function() { n.classList.remove('show'); }, 2500);
+}
+
+// ============================================================
+// INIT
+// ============================================================
+loadState();
+render();
+</script>
+</body>
+</html>
