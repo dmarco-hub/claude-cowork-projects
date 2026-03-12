@@ -1007,12 +1007,12 @@ async function generateContent(type) {
   }
 
   try {
-    const resp = await fetch('https://api.anthropic.com/v1/messages', {
+    const resp = await fetch('/api/generate', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         model: 'claude-sonnet-4-20250514',
-        max_tokens: 1000,
+        max_tokens: 4096,
         messages: [{ role: 'user', content: prompt }]
       })
     });
